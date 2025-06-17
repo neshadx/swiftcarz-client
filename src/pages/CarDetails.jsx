@@ -148,7 +148,6 @@
 
 // export default CarDetails;
 
-
 import React, { useEffect, useState, useContext } from "react";
 import { useParams } from "react-router-dom";
 import { toast } from "react-toastify";
@@ -199,9 +198,9 @@ const CarDetails = () => {
       userEmail: user.email,
       startDate: startDate.toISOString(),
       endDate: endDate.toISOString(),
-      bookingDate: new Date().toISOString(), // ✅ FIXED: Add bookingDate
       totalPrice,
       status: "confirmed",
+      createdAt: new Date().toISOString(), // ✅ Fix added here
     };
 
     fetch(`${import.meta.env.VITE_API_URL}/api/bookings`, {
@@ -221,11 +220,7 @@ const CarDetails = () => {
   };
 
   if (loading || !car) {
-    return (
-      <div className="text-center py-10 text-gray-500 dark:text-gray-400">
-        Loading car details...
-      </div>
-    );
+    return <div className="text-center py-10 text-gray-500 dark:text-gray-400">Loading car details...</div>;
   }
 
   return (
@@ -251,37 +246,20 @@ const CarDetails = () => {
           </p>
 
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 text-sm text-gray-800 dark:text-gray-300">
-            <p>
-              <strong>📍 Location:</strong> {car.location}
-            </p>
-            <p>
-              <strong>💰 Price:</strong> ${car.dailyPrice} / day
-            </p>
-            <p>
-              <strong>🚗 Status:</strong> {car.availability}
-            </p>
-            <p>
-              <strong>📅 Booking Count:</strong> {car.bookingCount || 0}
-            </p>
-            <p>
-              <strong>⚙️ Features:</strong> {car.features || "N/A"}
-            </p>
-            <p>
-              <strong>👤 Posted By:</strong> {car.creatorName} (
-              {car.creatorEmail})
-            </p>
+            <p><strong>📍 Location:</strong> {car.location}</p>
+            <p><strong>💰 Price:</strong> ${car.dailyPrice} / day</p>
+            <p><strong>🚗 Status:</strong> {car.availability}</p>
+            <p><strong>📅 Booking Count:</strong> {car.bookingCount || 0}</p>
+            <p><strong>⚙️ Features:</strong> {car.features || "N/A"}</p>
+            <p><strong>👤 Posted By:</strong> {car.creatorName} ({car.creatorEmail})</p>
           </div>
 
           {car.availability === "available" && (
             <div className="mt-8">
-              <h4 className="text-lg font-semibold mb-2 dark:text-white">
-                Select Booking Dates
-              </h4>
+              <h4 className="text-lg font-semibold mb-2 dark:text-white">Select Booking Dates</h4>
               <div className="flex flex-col sm:flex-row gap-4 items-center">
                 <div>
-                  <label className="block text-sm font-medium dark:text-white">
-                    Start Date
-                  </label>
+                  <label className="block text-sm font-medium dark:text-white">Start Date</label>
                   <DatePicker
                     selected={startDate}
                     onChange={(date) => setStartDate(date)}
@@ -290,9 +268,7 @@ const CarDetails = () => {
                   />
                 </div>
                 <div>
-                  <label className="block text-sm font-medium dark:text-white">
-                    End Date
-                  </label>
+                  <label className="block text-sm font-medium dark:text-white">End Date</label>
                   <DatePicker
                     selected={endDate}
                     onChange={(date) => setEndDate(date)}
@@ -322,4 +298,3 @@ const CarDetails = () => {
 };
 
 export default CarDetails;
-
