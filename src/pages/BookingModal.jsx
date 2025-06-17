@@ -28,7 +28,7 @@ const BookingModal = ({ isOpen, onClose, booking, onUpdate }) => {
         {
           method: "PUT",
           headers: { "Content-Type": "application/json" },
-          credentials: "include", // ✅ Send JWT cookie
+          credentials: "include",
           body: JSON.stringify({
             startDate: startDate.toISOString(),
             endDate: endDate.toISOString(),
@@ -56,34 +56,42 @@ const BookingModal = ({ isOpen, onClose, booking, onUpdate }) => {
     <Modal
       isOpen={isOpen}
       onRequestClose={onClose}
-      className="bg-white dark:bg-gray-900 p-6 rounded-lg shadow-xl max-w-md mx-auto mt-40"
+      className="bg-[#0F172A] text-white p-6 rounded-xl shadow-xl w-full max-w-md mx-auto mt-32"
       overlayClassName="fixed inset-0 bg-black bg-opacity-50 flex justify-center items-center z-50"
     >
-      <h2 className="text-xl font-bold text-[#DD6B20] mb-4">Modify Booking Dates</h2>
+      <h2 className="text-xl font-bold text-[#F97316] mb-6">
+        Modify Booking Dates
+      </h2>
 
-      <label className="font-semibold text-sm dark:text-white">Start Date</label>
-      <DatePicker
-        selected={startDate}
-        onChange={(date) => setStartDate(date)}
-        selectsStart
-        startDate={startDate}
-        endDate={endDate}
-        minDate={new Date()}
-        dateFormat="yyyy-MM-dd"
-        className="input input-bordered w-full dark:bg-gray-700 dark:text-white mb-4"
-      />
+      <div className="flex flex-col gap-4 mb-6">
+        <div>
+          <label className="block text-sm font-semibold mb-1">Start Date</label>
+          <DatePicker
+            selected={startDate}
+            onChange={(date) => setStartDate(date)}
+            selectsStart
+            startDate={startDate}
+            endDate={endDate}
+            minDate={new Date()}
+            dateFormat="yyyy-MM-dd"
+            className="input input-bordered w-full dark:bg-gray-700 dark:text-white"
+          />
+        </div>
 
-      <label className="font-semibold text-sm dark:text-white">End Date</label>
-      <DatePicker
-        selected={endDate}
-        onChange={(date) => setEndDate(date)}
-        selectsEnd
-        startDate={startDate}
-        endDate={endDate}
-        minDate={startDate}
-        dateFormat="yyyy-MM-dd"
-        className="input input-bordered w-full dark:bg-gray-700 dark:text-white mb-6"
-      />
+        <div>
+          <label className="block text-sm font-semibold mb-1">End Date</label>
+          <DatePicker
+            selected={endDate}
+            onChange={(date) => setEndDate(date)}
+            selectsEnd
+            startDate={startDate}
+            endDate={endDate}
+            minDate={startDate}
+            dateFormat="yyyy-MM-dd"
+            className="input input-bordered w-full dark:bg-gray-700 dark:text-white"
+          />
+        </div>
+      </div>
 
       <div className="flex justify-end gap-4">
         <button
@@ -95,7 +103,7 @@ const BookingModal = ({ isOpen, onClose, booking, onUpdate }) => {
         <button
           onClick={handleUpdate}
           disabled={loading}
-          className="bg-[#DD6B20] hover:bg-[#c5530c] text-white px-4 py-2 rounded font-semibold"
+          className="bg-[#F97316] hover:bg-[#ea6505] text-white px-4 py-2 rounded font-semibold"
         >
           {loading ? "Updating..." : "Confirm"}
         </button>

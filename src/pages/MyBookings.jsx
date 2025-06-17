@@ -118,6 +118,7 @@ const MyBookings = () => {
   const [bookings, setBookings] = useState([]);
   const [selectedBooking, setSelectedBooking] = useState(null);
 
+  // ✅ Load bookings on mount
   useEffect(() => {
     if (user?.email) {
       fetch(`${import.meta.env.VITE_API_URL}/api/bookings/my?email=${user.email}`, {
@@ -129,30 +130,39 @@ const MyBookings = () => {
     }
   }, [user]);
 
-  const handleCancel = (id) => {
-    Swal.fire({
+  // ✅ Cancel booking
+  const handleCancel = async (id) => {
+    const confirm = await Swal.fire({
       title: "Are you sure?",
       text: "This will cancel the booking.",
       icon: "warning",
       showCancelButton: true,
       confirmButtonText: "Yes, cancel it!",
       confirmButtonColor: "#DD6B20",
-    }).then((result) => {
-      if (result.isConfirmed) {
-        fetch(`${import.meta.env.VITE_API_URL}/api/bookings/${id}`, {
+    });
+
+    if (confirm.isConfirmed) {
+      try {
+        const res = await fetch(`${import.meta.env.VITE_API_URL}/api/bookings/${id}`, {
           method: "DELETE",
           credentials: "include",
-        })
-          .then((res) => res.json())
-          .then(() => {
-            Swal.fire("Cancelled", "Booking cancelled.", "success");
-            setBookings((prev) => prev.filter((b) => b._id !== id));
-          })
-          .catch(() => Swal.fire("Error", "Failed to cancel booking", "error"));
+        });
+
+        const result = await res.json();
+
+        if (res.ok) {
+          Swal.fire("Cancelled", "Booking cancelled.", "success");
+          setBookings((prev) => prev.filter((b) => b._id !== id));
+        } else {
+          Swal.fire("Error", result?.error || "Failed to cancel booking", "error");
+        }
+      } catch (err) {
+        Swal.fire("Error", "Server error while canceling", "error");
       }
-    });
+    }
   };
 
+  // ✅ Update local booking dates
   const handleUpdateDates = (id, newStart, newEnd) => {
     setBookings((prev) =>
       prev.map((b) =>
@@ -245,4 +255,5 @@ const MyBookings = () => {
 };
 
 export default MyBookings;
+
 
