@@ -1,34 +1,47 @@
 
+# SwiftCarz – Car Rental & Booking Platform
 
-# Craflin – Group Management System
-
-Craflin is a web application designed for creating, managing, and joining hobby groups. Built with React, Express, and MongoDB, the platform provides a seamless user experience, allowing users to interact with hobby groups, manage memberships, and access dynamic group details.
+SwiftCarz is a full-stack car rental platform that allows users to explore available cars, book rentals, modify bookings, and manage cars with secure JWT authentication. The app supports a seamless user experience with protected routes, dynamic car details, booking modals, and a modern UI.
 
 ## 🔗 Live Demo
-👉 Explore the live site here (Replace with your actual demo link)
+
+👉 [Visit SwiftCarz Live Site](#) *(Replace with actual link)*
+
+---
 
 ## 🚀 Features
-- 🔐 **Authentication** – Sign up / Login with Email & Google for secure access
-- 📝 **Group Creation** – Users can create and manage hobby groups with details like name, category, location, description, etc.
-- 📅 **Event Details** – Users can view the event details, reserve a spot, and explore the group’s activities.
-- 🚀 **Group Join** – Users can join groups, with real-time checks for group availability (full/expired).
-- 🔒 **Protected Pages** – Private routes like My Groups, Update Group, etc.
-- 🌐 **Responsive Design** – Fully responsive layout using Tailwind CSS for mobile, tablet, and desktop screens.
-- 🌙 **Dark Mode Support** – Automatic light/dark theme toggle for a pleasant user experience.
-- 🧑‍🤝‍🧑 **Member Management** – Join, leave, and view member details of groups.
-- 🛠 **Easy-to-Use Interface** – Simple navigation for group management, viewing group details, and joining groups.
 
-## 💪 Tech Stack
-- ⚛️ **React** – Frontend framework for building the user interface.
-- 🌐 **React Router DOM** – For navigating between pages.
-- 🔥 **Firebase Auth** – For secure user authentication with Email & Google login.
-- 💅 **Tailwind CSS** – Utility-first CSS framework for styling.
-- 🧠 **React Helmet Async** – For managing and updating document titles dynamically.
-- 🚀 **React Toastify** – Toast notifications for user feedback.
-- ✨ **SwiperJS** – For a smooth, mobile-friendly swipe slider for event categories and images.
-- 🌙 **Tailwind Dark Mode** – Built-in dark mode support for the best user experience.
-- 🛠 **Express** – Backend framework to handle routing, authentication, and data handling.
-- 📚 **MongoDB** – Database for storing groups, users, and group activities.
+* 🔐 **JWT Authentication** – Secure login system using Firebase Auth and HTTP-only cookies
+* 🧾 **Add / Update / Delete Cars** – Admins can manage cars with details like model, price, and location
+* 🧳 **Book a Car** – Users can browse cars and place rental bookings with date selection
+* 📆 **Modify or Cancel Bookings** – Users can change booking dates or cancel them
+* 🛡 **Protected Routes** – Authenticated access to booking and car management features
+* 🌐 **Responsive UI** – Optimized for mobile, tablet, and desktop
+* 🌙 **Dark Mode** – Light/dark theme toggle with Tailwind
+* 🎨 **Dashboard Views** – Clean table and card layouts with sorting and filters
+
+---
+
+## 💻 Tech Stack
+
+### Frontend
+
+* ⚛️ **React** (Vite)
+* 🔐 **Firebase Authentication**
+* 🌈 **Tailwind CSS** + **DaisyUI**
+* 🚦 **React Router DOM**
+* 🎩 **React Helmet Async**
+* 📅 **React Date Picker**
+* 🔔 **SweetAlert2** for alerts
+
+### Backend
+
+* 🛠 **Express.js** (single file setup)
+* 🍪 **JWT + Cookie Parser**
+* 🌍 **CORS Configured** for secure cross-origin cookies
+* 💾 **MongoDB Atlas** for storing cars and bookings
+* 🧪 **Environment Variables** managed via Vercel/Render
+
 ---
 
 ## 🔧 Installation & Setup
