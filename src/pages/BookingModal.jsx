@@ -7,12 +7,20 @@ import Swal from "sweetalert2";
 Modal.setAppElement("#root");
 
 const BookingModal = ({ isOpen, onClose, booking, onUpdate }) => {
-  const [newDate, setNewDate] = useState(
-    booking?.bookingDate ? new Date(booking.bookingDate) : new Date()
+  const [startDate, setStartDate] = useState(
+    booking?.startDate ? new Date(booking.startDate) : new Date()
+  );
+  const [endDate, setEndDate] = useState(
+    booking?.endDate ? new Date(booking.endDate) : new Date()
   );
   const [loading, setLoading] = useState(false);
 
   const handleUpdate = async () => {
+    if (!startDate || !endDate || startDate > endDate) {
+      Swal.fire("Invalid", "Please select a valid date range", "warning");
+      return;
+    }
+
     setLoading(true);
     try {
       const response = await fetch(
@@ -20,16 +28,21 @@ const BookingModal = ({ isOpen, onClose, booking, onUpdate }) => {
         {
           method: "PUT",
           headers: { "Content-Type": "application/json" },
-          body: JSON.stringify({ bookingDate: newDate.toISOString() }),
+          credentials: "include", // ✅ Send JWT cookie
+          body: JSON.stringify({
+            startDate: startDate.toISOString(),
+            endDate: endDate.toISOString(),
+          }),
         }
       );
       const result = await response.json();
+
       if (result.modifiedCount > 0 || result.success) {
-        Swal.fire("Updated", "Booking date updated!", "success");
-        onUpdate(booking._id, newDate.toISOString());
+        Swal.fire("Updated", "Booking dates updated!", "success");
+        onUpdate(booking._id, startDate, endDate);
         onClose();
       } else {
-        Swal.fire("Info", "No changes made.", "info");
+        Swal.fire("Info", "No changes made", "info");
       }
     } catch (err) {
       console.error("Update error:", err);
@@ -43,17 +56,33 @@ const BookingModal = ({ isOpen, onClose, booking, onUpdate }) => {
     <Modal
       isOpen={isOpen}
       onRequestClose={onClose}
-      className="bg-white dark:bg-gray-800 p-6 rounded-lg shadow-xl max-w-md mx-auto mt-40"
+      className="bg-white dark:bg-gray-900 p-6 rounded-lg shadow-xl max-w-md mx-auto mt-40"
       overlayClassName="fixed inset-0 bg-black bg-opacity-50 flex justify-center items-center z-50"
     >
-      <h2 className="text-xl font-bold text-[#DD6B20] mb-4">Modify Booking Date</h2>
+      <h2 className="text-xl font-bold text-[#DD6B20] mb-4">Modify Booking Dates</h2>
 
+      <label className="font-semibold text-sm dark:text-white">Start Date</label>
       <DatePicker
-        selected={newDate}
-        onChange={(date) => setNewDate(date)}
+        selected={startDate}
+        onChange={(date) => setStartDate(date)}
+        selectsStart
+        startDate={startDate}
+        endDate={endDate}
         minDate={new Date()}
         dateFormat="yyyy-MM-dd"
         className="input input-bordered w-full dark:bg-gray-700 dark:text-white mb-4"
+      />
+
+      <label className="font-semibold text-sm dark:text-white">End Date</label>
+      <DatePicker
+        selected={endDate}
+        onChange={(date) => setEndDate(date)}
+        selectsEnd
+        startDate={startDate}
+        endDate={endDate}
+        minDate={startDate}
+        dateFormat="yyyy-MM-dd"
+        className="input input-bordered w-full dark:bg-gray-700 dark:text-white mb-6"
       />
 
       <div className="flex justify-end gap-4">
