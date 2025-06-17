@@ -23,11 +23,13 @@ const BookingModal = ({ isOpen, onClose, booking, onUpdate }) => {
 
     setLoading(true);
     try {
-      const response = await fetch(
+      const res = await fetch(
         `${import.meta.env.VITE_API_URL}/api/bookings/${booking._id}`,
         {
           method: "PUT",
-          headers: { "Content-Type": "application/json" },
+          headers: {
+            "Content-Type": "application/json",
+          },
           credentials: "include",
           body: JSON.stringify({
             startDate: startDate.toISOString(),
@@ -35,14 +37,15 @@ const BookingModal = ({ isOpen, onClose, booking, onUpdate }) => {
           }),
         }
       );
-      const result = await response.json();
 
-      if (result.modifiedCount > 0 || result.success) {
+      const result = await res.json();
+
+      if (res.ok && result.success) {
         Swal.fire("Updated", "Booking dates updated!", "success");
         onUpdate(booking._id, startDate, endDate);
         onClose();
       } else {
-        Swal.fire("Info", "No changes made", "info");
+        Swal.fire("Info", result.error || "No changes made", "info");
       }
     } catch (err) {
       console.error("Update error:", err);
