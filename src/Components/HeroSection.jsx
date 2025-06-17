@@ -186,7 +186,7 @@ const slides = [
     text: "Choose from our fleet of premium cars and make your journey memorable.",
   },
   {
-    img: "https://i.postimg.cc/htnSzVtz/car2.jpg",
+    img: "https://i.postimg.cc/7YhB0Lcy/anastase-maragos-UZOUVADKq2g-unsplash.jpg",
     heading: "Your Next Car Awaits You.",
     text: "Luxury, comfort, and reliability—available at your fingertips.",
   },
