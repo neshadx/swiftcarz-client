@@ -191,7 +191,7 @@ const slides = [
     text: "Luxury, comfort, and reliability—available at your fingertips.",
   },
   {
-    img: "https://i.postimg.cc/zvC1X9Wc/car3.jpg",
+    img: "https://i.postimg.cc/156KpYPy/alan-king-1-R63ta-Co-Sn-M-unsplash.jpg",
     heading: "Experience Swift Driving.",
     text: "Book anytime, drive anywhere — SwiftCarz has your back.",
   },
