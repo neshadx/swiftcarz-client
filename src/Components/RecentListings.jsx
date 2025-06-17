@@ -180,7 +180,7 @@ const RecentListings = () => {
                     "https://via.placeholder.com/400x200?text=No+Image"
                   }
                   alt={car.model || "Unknown"}
-                  className="h-44 w-full object-cover"
+                  className="w-full h-48 object-cover rounded-t-xl"
                   onError={(e) =>
                     (e.target.src =
                       "https://via.placeholder.com/400x200?text=Image+Not+Found")

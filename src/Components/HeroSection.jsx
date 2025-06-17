@@ -181,7 +181,7 @@ import { Link } from "react-router-dom";
 
 const slides = [
   {
-    img: "https://i.postimg.cc/DzhTj8J9/car1.jpg",
+    img: "https://i.postimg.cc/zfmncDG6/adrian-newell-7v-Iq-Lit-Lb-T0-unsplash.jpg",
     heading: "Drive Your Dreams Today!",
     text: "Choose from our fleet of premium cars and make your journey memorable.",
   },
