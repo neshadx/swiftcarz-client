@@ -1,3 +1,4 @@
+
 // import React, { useContext, useState } from "react";
 // import { AuthContext } from "../Context/Provider/AuthProvider";
 // import { Helmet } from "react-helmet-async";
@@ -34,10 +35,14 @@
 //     };
 
 //     try {
+//       // ✅ Get token from localStorage (must be saved after login)
+//       const token = localStorage.getItem("token");
+
 //       const res = await fetch(`${import.meta.env.VITE_API_URL}/api/cars`, {
 //         method: "POST",
 //         headers: {
 //           "Content-Type": "application/json",
+//           Authorization: `Bearer ${token}`, // ✅ Send token manually
 //         },
 //         credentials: "include",
 //         body: JSON.stringify(payload),
@@ -46,7 +51,7 @@
 //       const data = await res.json();
 
 //       if (res.ok && (data.insertedId || data.acknowledged)) {
-//         Swal.fire("Success", "Car added successfully!", "success");
+//         Swal.fire("✅ Success", "Car added successfully!", "success");
 //         setFormData({
 //           model: "",
 //           dailyPrice: "",
@@ -58,10 +63,10 @@
 //           location: "",
 //         });
 //       } else {
-//         throw new Error(data?.error || "Unknown error");
+//         throw new Error(data?.error || "Unauthorized or unknown error");
 //       }
 //     } catch (error) {
-//       toast.error("Failed to add car");
+//       toast.error("❌ Failed to add car");
 //       console.error("AddCar Error:", error);
 //     }
 //   };
@@ -190,7 +195,6 @@
 
 
 
-
 import React, { useContext, useState } from "react";
 import { AuthContext } from "../Context/Provider/AuthProvider";
 import { Helmet } from "react-helmet-async";
@@ -227,16 +231,12 @@ const AddCar = () => {
     };
 
     try {
-      // ✅ Get token from localStorage (must be saved after login)
-      const token = localStorage.getItem("token");
-
       const res = await fetch(`${import.meta.env.VITE_API_URL}/api/cars`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
-          Authorization: `Bearer ${token}`, // ✅ Send token manually
         },
-        credentials: "include",
+        credentials: "include", // ✅ Send cookie with request
         body: JSON.stringify(payload),
       });
 
@@ -384,4 +384,5 @@ const AddCar = () => {
 };
 
 export default AddCar;
+
 
