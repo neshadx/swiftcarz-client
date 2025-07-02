@@ -36,7 +36,10 @@ import HeroSection from "../Components/HeroSection";
 import RecentListings from "../Components/RecentListings";
 import WhyChooseUs from "../Components/WhyChooseUs";
 import SpecialOffers from "../Components/SpecialOffers";
-// import Testimonials from "../Components/Testimonials";
+import Categories from "../Components/Categories";
+import Newsletter from "../Components/Newsletter";
+import Testimonials from "../Components/Testimonials";
+import AppDownload from "../Components/AppDownload";
 
 const Home = () => {
   return (
@@ -60,9 +63,13 @@ const Home = () => {
 
       {/* 🎯 Special Offers Section */}
       <SpecialOffers />
+       <Categories />   
+       <Testimonials /> 
+       {/* <AppDownload />       */}
+      <Newsletter /> 
 
-      {/* 🗣️ Testimonials (optional if implemented) */}
-      {/* <Testimonials /> */}
+      
+      
     </>
   );
 };
