@@ -254,6 +254,7 @@
 
 // export default HeroSection;
 
+
 import React from "react";
 import { Swiper, SwiperSlide } from "swiper/react";
 import "swiper/css";
@@ -262,10 +263,6 @@ import { Autoplay, Pagination } from "swiper/modules";
 import { Typewriter } from "react-simple-typewriter";
 import { Fade } from "react-awesome-reveal";
 import { Link } from "react-router-dom";
-
-const PRIMARY   = "#065F46";   // emerald-800
-const SECONDARY = "#10B981";   // emerald-500
-const BTN_HOVER = "#059669";   // emerald-600
 
 const slides = [
   {
@@ -287,83 +284,76 @@ const slides = [
 
 const HeroSection = () => {
   return (
-    <section className="w-full bg-gradient-to-b from-white to-slate-50">
-      <div className="max-w-6xl mx-auto px-4 md:px-6 py-6 md:py-10">
-        <Swiper
-          slidesPerView={1}
-          pagination={{ clickable: true }}
-          autoplay={{ delay: 5000, disableOnInteraction: false }}
-          modules={[Pagination, Autoplay]}
-          style={{ ["--swiper-theme-color"]: SECONDARY }}
-          className="rounded-3xl shadow-2xl"
-        >
-          {slides.map((slide, i) => (
-            <SwiperSlide key={i}>
-              {/* ✅ Smaller, cinematic banner */}
-              <div className="
-                relative overflow-hidden rounded-3xl
-                h-[220px] sm:h-[280px]
-                md:h-auto md:aspect-[16/7]
-                lg:aspect-[21/9] lg:max-h-[520px]
-              ">
-                <img
-                  src={slide.img}
-                  alt={slide.heading}
-                  className="w-full h-full object-cover"
-                  loading="lazy"
-                />
+    <section className="w-full px-4 md:px-12 pt-6 pb-14">
+      <Swiper
+        slidesPerView={1}
+        pagination={{ 
+          clickable: true,
+          bulletClass: 'swiper-pagination-bullet',
+          bulletActiveClass: 'swiper-pagination-bullet-active'
+        }}
+        autoplay={{
+          delay: 5000,
+          disableOnInteraction: false,
+        }}
+        modules={[Pagination, Autoplay]}
+        className="rounded-xl shadow-2xl"
+      >
+        {slides.map((slide, index) => (
+          <SwiperSlide key={index}>
+            <div className="relative h-[260px] sm:h-[340px] md:h-[420px] lg:h-[500px] rounded-xl overflow-hidden">
+              <img
+                src={slide.img}
+                alt={slide.heading}
+                className="w-full h-full object-cover brightness-90"
+                loading="lazy"
+              />
+              <div className="absolute inset-0 bg-gradient-to-r from-black/70 via-black/50 to-black/30 z-10"></div>
 
-                {/* vignette + angle gradient for text legibility */}
-                <div className="absolute inset-0 z-10">
-                  <div className="absolute inset-0 bg-black/40"></div>
-                  <div className="absolute inset-0 bg-gradient-to-tr from-black/40 via-transparent to-transparent"></div>
-                </div>
-
-                {/* content */}
-                <div className="absolute inset-0 z-20 flex flex-col items-center justify-center text-center px-4">
-                  <Fade direction="up" cascade duration={600} triggerOnce>
-                    <h1 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-extrabold tracking-tight text-white drop-shadow-xl">
-                      <Typewriter
-                        words={[slide.heading]}
-                        loop={false}
-                        cursor
-                        cursorStyle="|"
-                        typeSpeed={60}
-                        deleteSpeed={40}
-                        delaySpeed={1000}
-                      />
-                    </h1>
-
-                    <p className="mt-3 text-xs sm:text-sm md:text-base text-white/90 max-w-2xl bg-black/20 backdrop-blur-md px-4 py-2 rounded-lg">
-                      {slide.text}
-                    </p>
-
-                    <Link to="/available" className="mt-4">
-                      <button
-                        className="px-6 py-2 rounded-full font-semibold text-white shadow-md hover:shadow-lg transition-all focus:outline-none focus:ring-2 focus:ring-white/50"
-                        style={{ backgroundColor: SECONDARY }}
-                        onMouseEnter={(e)=> e.currentTarget.style.backgroundColor = BTN_HOVER}
-                        onMouseLeave={(e)=> e.currentTarget.style.backgroundColor = SECONDARY}
-                      >
-                        View Available Cars
-                      </button>
-                    </Link>
-                  </Fade>
-                </div>
-
-                {/* subtle inner border to tie with brand */}
-                <div
-                  className="pointer-events-none absolute inset-0 rounded-3xl"
-                  style={{ boxShadow: `inset 0 0 0 1px ${PRIMARY}22` }}
-                />
+              <div className="absolute inset-0 z-20 flex flex-col justify-center items-start md:items-center px-6 text-left md:text-center text-white space-y-4">
+                <Fade direction="up" cascade duration={600} triggerOnce damping={0.2}>
+                  <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-extrabold tracking-tight drop-shadow-2xl">
+                    <Typewriter
+                      words={[slide.heading]}
+                      loop={false}
+                      cursor
+                      cursorStyle="_"
+                      typeSpeed={70}
+                      deleteSpeed={50}
+                      delaySpeed={1500}
+                    />
+                  </h1>
+                  <p className="text-sm sm:text-base md:text-lg max-w-2xl bg-white/20 dark:bg-black/30 backdrop-blur-sm p-4 rounded-lg shadow-lg">
+                    {slide.text}
+                  </p>
+                  <Link to="/available">
+                    <button className="mt-4 px-8 py-3 rounded-full font-bold bg-gradient-to-r from-[#DD6B20] to-[#f97316] text-white hover:scale-105 transition-all duration-300 shadow-lg hover:shadow-xl active:scale-95">
+                      View Available Cars →
+                    </button>
+                  </Link>
+                </Fade>
               </div>
-            </SwiperSlide>
-          ))}
-        </Swiper>
-      </div>
+            </div>
+          </SwiperSlide>
+        ))}
+      </Swiper>
+
+      {/* Custom pagination styling (add to your CSS) */}
+      <style jsx global>{`
+        .swiper-pagination-bullet {
+          background: rgba(255,255,255,0.5);
+          width: 10px;
+          height: 10px;
+          opacity: 1;
+        }
+        .swiper-pagination-bullet-active {
+          background: #DD6B20;
+          width: 30px;
+          border-radius: 5px;
+        }
+      `}</style>
     </section>
   );
 };
 
 export default HeroSection;
-
