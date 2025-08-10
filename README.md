@@ -5,7 +5,7 @@ SwiftCarz is a full-stack car rental platform that allows users to explore avail
 
 ## 🔗 Live Demo
 
-👉 [Visit SwiftCarz Live Site]( https://musical-gecko-f6cbb2.netlify.app) 
+👉 [Visit SwiftCarz Live Site](https://github.com/neshadx/swiftcarz-client) 
 
 ## 🚀 Features
 
